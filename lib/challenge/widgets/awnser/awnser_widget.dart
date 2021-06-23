@@ -14,7 +14,7 @@ class AwnserWidget extends StatelessWidget {
     this.isSelected = false,
   }) : super(key: key);
 
-  Color get _selectedColorWight =>
+  Color get _selectedColorRight =>
       isRight ? AppColors.darkGreen : AppColors.darkRed;
 
   Color get _selectedBorderRight =>
@@ -60,7 +60,7 @@ class AwnserWidget extends StatelessWidget {
               height: 24,
               width: 24,
               decoration: BoxDecoration(
-                color: AppColors.darkGreen,
+                color: isSelected ? _selectedColorRight : AppColors.white,
                 borderRadius: BorderRadius.circular(500),
                 border: Border.fromBorderSide(
                   BorderSide(
