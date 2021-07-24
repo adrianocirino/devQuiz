@@ -7,12 +7,14 @@ import 'package:dev_quiz/shared/models/awnser_model.dart';
 class AwnserWidget extends StatelessWidget {
   final AwnserModel awnser;
   final bool isSelected;
+  final bool disabled;
   final VoidCallback onTap;
 
   const AwnserWidget({
     Key? key,
     required this.awnser,
     this.isSelected = false,
+    this.disabled = false,
     required this.onTap,
   }) : super(key: key);
 
@@ -37,48 +39,51 @@ class AwnserWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: isSelected ? _selectedColorCardRight : AppColors.white,
-            borderRadius: BorderRadius.circular(10),
-            border: Border.fromBorderSide(
-              BorderSide(
-                color: isSelected ? _selectedBorderCardRight : AppColors.border,
+      child: IgnorePointer(
+        ignoring: disabled,
+        child: GestureDetector(
+          onTap: onTap,
+          child: Container(
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: isSelected ? _selectedColorCardRight : AppColors.white,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.fromBorderSide(
+                BorderSide(
+                  color: isSelected ? _selectedBorderCardRight : AppColors.border,
+                ),
               ),
             ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Text(
-                  awnser.title,
-                  style:
-                      isSelected ? _selectedTextStyleRight : AppTextStyles.body,
-                ),
-              ),
-              Container(
-                height: 24,
-                width: 24,
-                decoration: BoxDecoration(
-                  color: isSelected ? _selectedColorRight : AppColors.white,
-                  borderRadius: BorderRadius.circular(500),
-                  border: Border.fromBorderSide(
-                    BorderSide(
-                      color: isSelected ? _selectedBorderRight : AppColors.border,
-                    ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    awnser.title,
+                    style:
+                        isSelected ? _selectedTextStyleRight : AppTextStyles.body,
                   ),
                 ),
-                child: isSelected ? Icon(
-                  Icons.check,
-                  size: 16,
-                  color: Colors.white,
-                ) : null
-              )
-            ],
+                Container(
+                  height: 24,
+                  width: 24,
+                  decoration: BoxDecoration(
+                    color: isSelected ? _selectedColorRight : AppColors.white,
+                    borderRadius: BorderRadius.circular(500),
+                    border: Border.fromBorderSide(
+                      BorderSide(
+                        color: isSelected ? _selectedBorderRight : AppColors.border,
+                      ),
+                    ),
+                  ),
+                  child: isSelected ? Icon(
+                    Icons.check,
+                    size: 16,
+                    color: Colors.white,
+                  ) : null
+                )
+              ],
+            ),
           ),
         ),
       ),
