@@ -23,6 +23,9 @@ class _ChallengePageState extends State<ChallengePage> {
 
   @override
   void initState() {
+    controller.currentPageNotifier.addListener(() {
+      setState(() {});
+    });
     pageController.addListener(() {
       controller.currentPage = pageController.page!.toInt() + 1;
     });
@@ -53,6 +56,7 @@ class _ChallengePageState extends State<ChallengePage> {
                 ],
               ))),
       body: PageView(
+        physics: NeverScrollableScrollPhysics(),
         controller: pageController,
         children: widget.questions
             .map((e) => QuizWidget(
@@ -70,7 +74,12 @@ class _ChallengePageState extends State<ChallengePage> {
               Expanded(
                   child: NextButtonWidget.white(
                 label: "Pular",
-                onTap: () {},
+                onTap: () {
+                  pageController.nextPage(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.linear,
+                  );
+                },
               )),
               SizedBox(width: 7),
               Expanded(
